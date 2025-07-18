@@ -13,11 +13,20 @@ namespace CarTelemetryLogger
 
             while (true)
             {
-                Console.Write("Enter Speed (km/h, or 'exit'): ");
+                Console.WriteLine("\n--- Enter Sensor Data ---");
+                Console.Write("Speed (km/h, or 'exit'): ");
                 string speedInput = Console.ReadLine();
                 if (speedInput.ToLower() == "exit") break;
 
-                if (double.TryParse(speedInput, out double speed) && speed >= 0)
+                Console.Write("RPM: ");
+                string rpmInput = Console.ReadLine();
+                Console.Write("Temperature (°C): ");
+                string tempInput = Console.ReadLine();
+
+                if (double.TryParse(speedInput, out double speed) &&
+                    double.TryParse(rpmInput, out double rpm) &&
+                    double.TryParse(tempInput, out double temp) &&
+                    speed >= 0 && rpm >= 0 && temp >= -50)
                 {
                     if (count >= speeds.Length)
                     {
@@ -25,20 +34,21 @@ namespace CarTelemetryLogger
                         break;
                     }
                     speeds[count] = speed;
+                    rpms[count] = rpm;
+                    temps[count] = temp;
                     count++;
-                    Console.WriteLine("Speed recorded.");
+                    Console.WriteLine("Data recorded successfully.");
                 }
                 else
                 {
-                    Console.WriteLine("Invalid speed! Must be a non-negative number.");
+                    Console.WriteLine("Invalid input! Must be non-negative numbers (temp >= -50).");
                 }
             }
 
-            // Temporary output to verify
-            Console.WriteLine("\nRecorded Speeds:");
+            Console.WriteLine("\nRecorded Data:");
             for (int i = 0; i < count; i++)
             {
-                Console.WriteLine($"Speed {i + 1}: {speeds[i]}");
+                Console.WriteLine($"Entry {i + 1}: Speed={speeds[i]}, RPM={rpms[i]}, Temp={temps[i]}");
             }
         }
     }
