@@ -11,39 +11,56 @@ namespace CarTelemetryLogger
             double[] rpms = new double[100];
             double[] temps = new double[100];
             int count = 0;
+            Random rand = new Random();
 
-            while (true)
+            Console.Write("Manual input or simulate? (m/S): ");
+            string mode = Console.ReadLine().ToLower();
+
+            if (mode == "s")
             {
-                Console.WriteLine("\n--- Enter Sensor Data ---");
-                Console.Write("Speed (km/h, or 'exit'): ");
-                string speedInput = Console.ReadLine();
-                if (speedInput.ToLower() == "exit") break;
-
-                Console.Write("RPM: ");
-                string rpmInput = Console.ReadLine();
-                Console.Write("Temperature (°C): ");
-                string tempInput = Console.ReadLine();
-
-                if (double.TryParse(speedInput, out double speed) &&
-                    double.TryParse(rpmInput, out double rpm) &&
-                    double.TryParse(tempInput, out double temp) &&
-                    speed >= 0 && rpm >= 0 && temp >= -50)
+                while (count < 5 && count < speeds.Length)
                 {
-                    if (count >= speeds.Length)
-                    {
-                        Console.WriteLine("Max data reached!");
-                        break;
-                    }
-                    speeds[count] = speed;
-                    rpms[count] = rpm;
-                    temps[count] = temp;
+                    speeds[count] = rand.NextDouble() * 200 + 50; // 50-250 km/h
+                    rpms[count] = rand.Next(1000, 8000); // 1000-8000 RPM
+                    temps[count] = rand.NextDouble() * 50 + 50; // 50-100°C
                     count++;
-                    Console.WriteLine("Data recorded successfully.");
-                    Console.WriteLine($"Debug: Stored entry {count}: {speed}, {rpm}, {temp}"); // Debug trace
                 }
-                else
+                Console.WriteLine("Simulated 5 entries.");
+            }
+            else
+            {
+                while (true)
                 {
-                    Console.WriteLine("Invalid input! Must be non-negative numbers (temp >= -50).");
+                    Console.WriteLine("\n--- Enter Sensor Data ---");
+                    Console.Write("Speed (km/h, or 'exit'): ");
+                    string speedInput = Console.ReadLine();
+                    if (speedInput.ToLower() == "exit") break;
+
+                    Console.Write("RPM: ");
+                    string rpmInput = Console.ReadLine();
+                    Console.Write("Temperature (°C): ");
+                    string tempInput = Console.ReadLine();
+
+                    if (double.TryParse(speedInput, out double speed) &&
+                        double.TryParse(rpmInput, out double rpm) &&
+                        double.TryParse(tempInput, out double temp) &&
+                        speed >= 0 && rpm >= 0 && temp >= -50)
+                    {
+                        if (count >= speeds.Length)
+                        {
+                            Console.WriteLine("Max data reached!");
+                            break;
+                        }
+                        speeds[count] = speed;
+                        rpms[count] = rpm;
+                        temps[count] = temp;
+                        count++;
+                        Console.WriteLine("Data recorded successfully.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid input! Must be non-negative numbers (temp >= -50).");
+                    }
                 }
             }
 
