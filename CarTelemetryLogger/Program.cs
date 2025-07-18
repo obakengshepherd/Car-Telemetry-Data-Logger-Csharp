@@ -6,37 +6,39 @@ namespace CarTelemetryLogger
     {
         static void Main(string[] args)
         {
-            Console.Write("Enter Speed (km/h): ");
-            string speedInput = Console.ReadLine();
-            if (double.TryParse(speedInput, out double speed) && speed >= 0)
+            double[] speeds = new double[100];
+            double[] rpms = new double[100];
+            double[] temps = new double[100];
+            int count = 0;
+
+            while (true)
             {
-                Console.WriteLine($"Valid speed: {speed}");
-            }
-            else
-            {
-                Console.WriteLine("Invalid speed! Must be a non-negative number.");
+                Console.Write("Enter Speed (km/h, or 'exit'): ");
+                string speedInput = Console.ReadLine();
+                if (speedInput.ToLower() == "exit") break;
+
+                if (double.TryParse(speedInput, out double speed) && speed >= 0)
+                {
+                    if (count >= speeds.Length)
+                    {
+                        Console.WriteLine("Max data reached!");
+                        break;
+                    }
+                    speeds[count] = speed;
+                    count++;
+                    Console.WriteLine("Speed recorded.");
+                }
+                else
+                {
+                    Console.WriteLine("Invalid speed! Must be a non-negative number.");
+                }
             }
 
-            Console.Write("Enter RPM: ");
-            string rpmInput = Console.ReadLine();
-            if (double.TryParse(rpmInput, out double rpm) && rpm >= 0)
+            // Temporary output to verify
+            Console.WriteLine("\nRecorded Speeds:");
+            for (int i = 0; i < count; i++)
             {
-                Console.WriteLine($"Valid RPM: {rpm}");
-            }
-            else
-            {
-                Console.WriteLine("Invalid RPM! Must be a non-negative number.");
-            }
-
-            Console.Write("Enter Temperature (°C): ");
-            string tempInput = Console.ReadLine();
-            if (double.TryParse(tempInput, out double temp) && temp >= -50)
-            {
-                Console.WriteLine($"Valid temperature: {temp}");
-            }
-            else
-            {
-                Console.WriteLine("Invalid temperature! Must be >= -50.");
+                Console.WriteLine($"Speed {i + 1}: {speeds[i]}");
             }
         }
     }
