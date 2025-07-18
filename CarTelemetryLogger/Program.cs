@@ -46,21 +46,31 @@ namespace CarTelemetryLogger
                 }
             }
 
-            // Display recorded data
+            DisplayData(speeds, rpms, temps, count);
+            SaveToFile(speeds, rpms, temps, count);
+
+            Console.WriteLine("Press Enter to exit...");
+            Console.ReadLine();
+        }
+
+        // Displays recorded sensor data to console
+        static void DisplayData(double[] speeds, double[] rpms, double[] temps, int count)
+        {
             Console.WriteLine("\nRecorded Data:");
             if (count == 0)
             {
                 Console.WriteLine("No data recorded.");
+                return;
             }
-            else
+            for (int i = 0; i < count; i++)
             {
-                for (int i = 0; i < count; i++)
-                {
-                    Console.WriteLine($"Entry {i + 1}: Speed={speeds[i]} km/h, RPM={rpms[i]}, Temp={temps[i]}°C");
-                }
+                Console.WriteLine($"Entry {i + 1}: Speed={speeds[i]} km/h, RPM={rpms[i]}, Temp={temps[i]}°C");
             }
+        }
 
-            // Save to file
+        // Saves sensor data to telemetry.txt in CSV format
+        static void SaveToFile(double[] speeds, double[] rpms, double[] temps, int count)
+        {
             string filePath = "telemetry.txt";
             string data = "Speed,RPM,Temperature\n";
             for (int i = 0; i < count; i++)
@@ -69,10 +79,6 @@ namespace CarTelemetryLogger
             }
             File.WriteAllText(filePath, data);
             Console.WriteLine($"\nData saved to {filePath}");
-
-            // Pause to view output
-            Console.WriteLine("Press Enter to exit...");
-            Console.ReadLine();
         }
     }
 }
