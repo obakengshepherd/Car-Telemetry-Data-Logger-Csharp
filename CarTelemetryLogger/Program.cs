@@ -5,19 +5,24 @@ namespace CarTelemetryLogger
 {
     class Program
     {
+        // Main entry point for the telemetry logger
         static void Main(string[] args)
         {
+            // Arrays to store sensor data (max 100 entries)
             double[] speeds = new double[100];
             double[] rpms = new double[100];
             double[] temps = new double[100];
             int count = 0;
             Random rand = new Random();
 
-            Console.Write("Manual input or simulate? (m/S): ");
+            // Prompt for input mode
+            Console.WriteLine("--- Car Telemetry Logger ---");
+            Console.Write("Choose input mode (m for manual, S for simulate): ");
             string mode = Console.ReadLine().ToLower();
 
             if (mode == "s")
             {
+                // Simulate 5 sensor data entries
                 while (count < 5 && count < speeds.Length)
                 {
                     speeds[count] = rand.NextDouble() * 200 + 50; // 50-250 km/h
@@ -25,10 +30,11 @@ namespace CarTelemetryLogger
                     temps[count] = rand.NextDouble() * 50 + 50; // 50-100°C
                     count++;
                 }
-                Console.WriteLine("Simulated 5 entries.");
+                Console.WriteLine("Simulated 5 telemetry entries.");
             }
             else
             {
+                // Manual input loop for sensor data
                 while (true)
                 {
                     Console.WriteLine("\n--- Enter Sensor Data ---");
@@ -48,7 +54,7 @@ namespace CarTelemetryLogger
                     {
                         if (count >= speeds.Length)
                         {
-                            Console.WriteLine("Max data reached!");
+                            Console.WriteLine("Error: Maximum data entries reached!");
                             break;
                         }
                         speeds[count] = speed;
@@ -59,7 +65,7 @@ namespace CarTelemetryLogger
                     }
                     else
                     {
-                        Console.WriteLine("Invalid input! Must be non-negative numbers (temp >= -50).");
+                        Console.WriteLine("Error: Inputs must be non-negative numbers (temp >= -50).");
                     }
                 }
             }
@@ -67,13 +73,14 @@ namespace CarTelemetryLogger
             DisplayData(speeds, rpms, temps, count);
             SaveToFile(speeds, rpms, temps, count);
 
-            Console.WriteLine("Press Enter to exit...");
+            Console.WriteLine("\nPress Enter to exit...");
             Console.ReadLine();
         }
 
+        // Displays recorded sensor data to console
         static void DisplayData(double[] speeds, double[] rpms, double[] temps, int count)
         {
-            Console.WriteLine("\nRecorded Data:");
+            Console.WriteLine("\n--- Recorded Telemetry Data ---");
             if (count == 0)
             {
                 Console.WriteLine("No data recorded.");
@@ -85,6 +92,7 @@ namespace CarTelemetryLogger
             }
         }
 
+        // Saves sensor data to telemetry.txt in CSV format
         static void SaveToFile(double[] speeds, double[] rpms, double[] temps, int count)
         {
             string filePath = "telemetry.txt";
