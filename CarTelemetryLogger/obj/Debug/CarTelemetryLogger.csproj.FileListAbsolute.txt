@@ -1,0 +1,7 @@
+C:\Users\obake\Projects\Car Telemetry Data Logger\CarTelemetryLogger\CarTelemetryLogger\bin\Debug\CarTelemetryLogger.exe.config
+C:\Users\obake\Projects\Car Telemetry Data Logger\CarTelemetryLogger\CarTelemetryLogger\bin\Debug\CarTelemetryLogger.exe
+C:\Users\obake\Projects\Car Telemetry Data Logger\CarTelemetryLogger\CarTelemetryLogger\bin\Debug\CarTelemetryLogger.pdb
+C:\Users\obake\Projects\Car Telemetry Data Logger\CarTelemetryLogger\CarTelemetryLogger\obj\Debug\CarTelemetryLogger.csproj.AssemblyReference.cache
+C:\Users\obake\Projects\Car Telemetry Data Logger\CarTelemetryLogger\CarTelemetryLogger\obj\Debug\CarTelemetryLogger.csproj.CoreCompileInputs.cache
+C:\Users\obake\Projects\Car Telemetry Data Logger\CarTelemetryLogger\CarTelemetryLogger\obj\Debug\CarTelemetryLogger.exe
+C:\Users\obake\Projects\Car Telemetry Data Logger\CarTelemetryLogger\CarTelemetryLogger\obj\Debug\CarTelemetryLogger.pdb
