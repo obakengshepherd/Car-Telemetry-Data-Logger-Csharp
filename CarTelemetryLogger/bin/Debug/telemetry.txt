@@ -1,0 +1,3 @@
+Speed,RPM,Temperature
+110,6500,96
+95,7500,88

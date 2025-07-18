@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace CarTelemetryLogger
 {
@@ -45,11 +46,33 @@ namespace CarTelemetryLogger
                 }
             }
 
+            // Display recorded data
             Console.WriteLine("\nRecorded Data:");
+            if (count == 0)
+            {
+                Console.WriteLine("No data recorded.");
+            }
+            else
+            {
+                for (int i = 0; i < count; i++)
+                {
+                    Console.WriteLine($"Entry {i + 1}: Speed={speeds[i]} km/h, RPM={rpms[i]}, Temp={temps[i]}°C");
+                }
+            }
+
+            // Save to file
+            string filePath = "telemetry.txt";
+            string data = "Speed,RPM,Temperature\n";
             for (int i = 0; i < count; i++)
             {
-                Console.WriteLine($"Entry {i + 1}: Speed={speeds[i]}, RPM={rpms[i]}, Temp={temps[i]}");
+                data += $"{speeds[i]},{rpms[i]},{temps[i]}\n";
             }
+            File.WriteAllText(filePath, data);
+            Console.WriteLine($"\nData saved to {filePath}");
+
+            // Pause to view output
+            Console.WriteLine("Press Enter to exit...");
+            Console.ReadLine();
         }
     }
 }
