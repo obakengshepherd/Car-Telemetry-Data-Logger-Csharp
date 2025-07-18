@@ -39,6 +39,7 @@ namespace CarTelemetryLogger
                     temps[count] = temp;
                     count++;
                     Console.WriteLine("Data recorded successfully.");
+                    Console.WriteLine($"Debug: Stored entry {count}: {speed}, {rpm}, {temp}"); // Debug trace
                 }
                 else
                 {
@@ -53,7 +54,6 @@ namespace CarTelemetryLogger
             Console.ReadLine();
         }
 
-        // Displays recorded sensor data to console
         static void DisplayData(double[] speeds, double[] rpms, double[] temps, int count)
         {
             Console.WriteLine("\nRecorded Data:");
@@ -68,7 +68,6 @@ namespace CarTelemetryLogger
             }
         }
 
-        // Saves sensor data to telemetry.txt in CSV format
         static void SaveToFile(double[] speeds, double[] rpms, double[] temps, int count)
         {
             string filePath = "telemetry.txt";
